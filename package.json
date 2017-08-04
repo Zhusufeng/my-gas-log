@@ -1,0 +1,19 @@
+{
+  "name": "my-gas-log",
+  "version": "1.0.0",
+  "description": "Keep track of your gas spending and MPG",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zhusufeng/my-gas-log.git"
+  },
+  "author": "Lisa Gee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zhusufeng/my-gas-log/issues"
+  },
+  "homepage": "https://github.com/Zhusufeng/my-gas-log#readme"
+}
