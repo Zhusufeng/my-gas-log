@@ -1,7 +1,47 @@
 class App extends React.Component {
-  // constructor() {
+  constructor(props) {
+    super(props);
 
-  // }
+  }
+
+  logMe(e) {
+    // Stop page from refreshing
+    e.preventDefault();
+
+    console.log(this.textInput1.value, this.textInput2.value, this.textInput3.value, this.textInput4.value);
+    var inputs = {
+      pmileage: this.textInput1.value,
+      cmileage: this.textInput2.value,
+      gallons: this.textInput3.value,
+      price: this.textInput4.value
+    };
+    this.post(inputs);
+    this.textInput1.value = '';
+    this.textInput2.value = '';
+    this.textInput3.value = '';
+    this.textInput4.value = '';
+  }
+
+  post(info) {
+    // Use jQuery to POST to server
+    $.ajax({
+      url: '/post',
+      type: 'POST',
+      data: JSON.stringify(info),
+      contentType: 'application/json',
+      success: function(data) {
+        console.log('POST. Client side receives back posted data: ', data);
+      },
+      error: function(error) {
+        console.error('POST. Client side receives back error data: ', error);
+      }
+    });
+
+  }
+
+  get() {
+
+  }
 
   render() {
     return (
@@ -9,7 +49,7 @@ class App extends React.Component {
         <span>App rendered to the page!</span>
         <div id="input">
           <form>
-          <table>
+          <table method="post">
             <thead>
               <tr>
                 <th>Previous Mileage:</th>
@@ -20,14 +60,42 @@ class App extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <td><input type="text" name="pmileage"></input></td>
-                <td><input type="text" name="cmileage"></input></td>
-                <td><input type="text" name="gallons"></input></td>
-                <td><input type="text" name="price"></input></td>
+                <td>
+                  <input
+                    type="text"
+                    name="pmileage"
+                    ref={(input) => { this.textInput1 = input;}}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="cmileage"
+                    ref={(input) => { this.textInput2 = input;}}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="gallons"
+                    ref={(input) => {this.textInput3 = input;}}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="price"
+                    ref={(input) => {this.textInput4 = input;}}
+                  />
+                </td>
               </tr>
             </tbody>
           </table>
-            <input type="submit" value="Submit"></input>
+            <input
+              type="submit"
+              value="Submit"
+              onClick={this.logMe.bind(this)}
+            />
           </form>
         </div>
         <div id="displayhistory">
