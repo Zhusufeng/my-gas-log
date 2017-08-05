@@ -9,7 +9,7 @@ CREATE TABLE gaslog (
   cmileage int NOT NULL,
   gallons int NOT NULL,
   price double(10,2) NOT NULL,
-  mpg int NOT NULL,
+  mpg double(10,2) NOT NULL,
   total double(10,2) NOT NULL
 );
 
