@@ -13,13 +13,22 @@ class App extends React.Component {
     var pmileage = parseInt(this.textInput1.value);
     var cmileage = parseInt(this.textInput2.value);
     var gallons = parseInt(this.textInput3.value);
-    var price = parseInt(this.textInput4.value);
+    var price = parseFloat(this.textInput4.value);
+    var mpg = +((cmileage - pmileage)/gallons).toFixed(2);
+    console.log('MPG is ', mpg);
+    // + turns to Number
+    // toFixed() rounds to number of decimal places specified
+    // console.log('MPG is ', +mpg.toFixed(2));
+    var total = +(gallons * price).toFixed(2);
+    console.log('Gas total is ', total);
 
     var inputs = {
       pmileage: pmileage,
       cmileage: cmileage,
       gallons: gallons,
-      price: price
+      price: price,
+      mpg: mpg,
+      total: total
     };
     this.post(inputs);
     this.textInput1.value = '';
