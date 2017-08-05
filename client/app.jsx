@@ -9,11 +9,17 @@ class App extends React.Component {
     e.preventDefault();
 
     console.log(this.textInput1.value, this.textInput2.value, this.textInput3.value, this.textInput4.value);
+
+    var pmileage = parseInt(this.textInput1.value);
+    var cmileage = parseInt(this.textInput2.value);
+    var gallons = parseInt(this.textInput3.value);
+    var price = parseInt(this.textInput4.value);
+
     var inputs = {
-      pmileage: this.textInput1.value,
-      cmileage: this.textInput2.value,
-      gallons: this.textInput3.value,
-      price: this.textInput4.value
+      pmileage: pmileage,
+      cmileage: cmileage,
+      gallons: gallons,
+      price: price
     };
     this.post(inputs);
     this.textInput1.value = '';
