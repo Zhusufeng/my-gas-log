@@ -4,6 +4,7 @@
   "description": "Keep track of your gas spending and MPG",
   "main": "server/index.js",
   "scripts": {
+    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
     "start": "nodemon server/index.js",
     "test": "test",
     "update": "babel . --watch --out-dir compiled --presets=es2015,react --ignore=node_modules,server,compiled --source-maps inline"
