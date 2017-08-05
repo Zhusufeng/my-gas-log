@@ -62,6 +62,18 @@ class App extends React.Component {
     return (
       <div>
         <span>App rendered to the page!</span>
+        <div>
+          <h3>How to Use My Gas Log</h3>
+          <span>Instructions:</span>
+          <ol>
+            <li>Record master odometer mileage (Previous Mileage).</li>
+            <li>Fill up your car's gas tank all the way.</li>
+            <li>Drive around.</li>
+            <li>When you go to put in more gas, record how much gas you needed to refill tank (Gallons).</li>
+            <li>Record how much the gas cost per gallon (Price).</li>
+            <li>Record new master odometer mileage (Current Mileage).</li>
+          </ol>
+        </div>
         <div id="input">
           <form>
           <table method="post">
