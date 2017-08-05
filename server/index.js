@@ -10,28 +10,59 @@ var db = mysql.createConnection({
 
 db.connect(function(err) {
   if (err) {
-    console.log('You have an error connecting to the db: ', err);
+    console.log('ERR!: Error connecting to the db. Error: ', err);
   }
-  console.log('!!! Connected to MySQL !!!');
+  console.log('YAY!: Connected to MySQL');
 
+  // Database not specified
   if (!db.database) {
-    console.log('Database mygaslog does not exist');
 
-    var createDB = "CREATE DATABASE mygaslog";
+    // Specify database
+    var useDB = "USE mygaslog";
 
-    db.query(createDB, function(err, result) {
+    db.query(useDB, function(err, result) {
       if (err) {
-        console.log('Did not create database mygaslog. Error is ', err);
+        console.log('ERR!: Error in using mygaslog database. Error: ', err);
+
+        // Create database if error in using database
+        var createDB = "CREATE DATABASE mygaslog";
+
+        db.query(createDB, function(err, result) {
+          if (err) {
+            console.log('ERR!: Error in creating database mygaslog. Error: ', err);
+          }
+          console.log('YAY!: Database mygaslog created');
+        });
       }
-      console.log('Database mygaslog created');
+
+      console.log('YAY!: Using database mygaslog');
     });
 
   } else {
-    console.log('Database named mygaslog is connected');
+    console.log('YAY!: Database named mygaslog is connected');
   }
 
+  // Specify table to use
+  var showTable = "SHOW TABLES FROM mygaslog LIKE 'gaslog'";
 
+  db.query(showTable, function(err, result) {
+    if (err) {
+      console.log('ERR!: Error in showing table gaslog. Error: ', err);
+    }
+    console.log('YAY!: ShowTable: ', result);
 
+    // Create Table
+    if (result.length === 0) {
+      var createTable = "CREATE TABLE gaslog (ID INT NOT NULL AUTO_INCREMENT, created DATETIME DEFAULT CURRENT_TIMESTAMP, pmileage INT NOT NULL, cmileage INT NOT NULL, gallons INT NOT NULL, price DOUBLE(10,2) NOT NULL, mpg DOUBLE(10,2) NOT NULL, total DOUBLE(10,2) NOT NULL, PRIMARY KEY(ID))";
+
+      db.query(createTable, function(err, result) {
+        if (err) {
+          console.log('ERR!: Error in creating table gaslog. Error: ', err);
+        }
+        console.log('YAY!: CreateTable: ', result);
+      });
+    }
+  });
 });
 
 // Parse application/json files
