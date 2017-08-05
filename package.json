@@ -5,9 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
-    "start": "nodemon server/index.js",
-    "test": "test",
-    "update": "babel . --watch --out-dir compiled --presets=es2015,react --ignore=node_modules,server,compiled --source-maps inline"
+    "start": "babel . --watch --out-dir compiled --presets=es2015,react --ignore=node_modules,server,compiled --source-maps inline"
   },
   "repository": {
     "type": "git",
@@ -22,9 +20,13 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.3.0",
+    "eslint-plugin-react": "^7.1.0"
   },
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mysql": "^2.14.1"
   }
 }
