@@ -55,7 +55,18 @@ class App extends React.Component {
   }
 
   get() {
-
+    // Use jQuery to GET from server
+    $.ajax({
+      url: '/post',
+      type: 'GET',
+      contentType: 'application/json',
+      success: function(data) {
+        console.log('GET. Client side received back all data: ', data);
+      },
+      error: function() {
+        console.error('GET. Client side receives back error data: ', error);
+      }
+    });
   }
 
   render() {
