@@ -45,6 +45,8 @@ class App extends React.Component {
   }
 
   post(info) {
+    var that = this;
+
     // Use jQuery to POST to server
     $.ajax({
       url: '/post',
@@ -53,6 +55,7 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (data) => {
         console.log('POST. Client side receives back posted data: ', data);
+        that.get();
       },
       error: (error) => {
         console.error('POST. Client side receives back error data: ', error);
@@ -62,6 +65,8 @@ class App extends React.Component {
   }
 
   get() {
+    var that = this;
+
     // Use jQuery to GET from server
     $.ajax({
       url: '/post',
@@ -69,16 +74,13 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (data) => {
         console.log('GET. Client side received back all data: ', data);
-        this.setState({ tableData: data }).bind(this);
+        that.setState({ tableData: data });
+        console.log(that.state.tableData);
       },
       error: () => {
         console.error('GET. Client side receives back error data: ', error);
       }
     });
-      // .done(data) => {
-      //   console.log('This is the DONE');
-      //   this.setState({ tableData: data }).bind(this);
-      // });
   }
 
   render() {
@@ -164,15 +166,17 @@ class App extends React.Component {
             </thead>
             <tbody>
               {this.state.tableData.map((row) => {
-                <tr>
-                  <td>row.created</td>
-                  <td>row.pmileage</td>
-                  <td>row.cmileage</td>
-                  <td>row.gallons</td>
-                  <td>row.price</td>
-                  <td>row.mpg</td>
-                  <td>row.total</td>
-                </tr>
+                return (
+                  <tr>
+                    <td>{row.created}</td>
+                    <td>{row.pmileage}</td>
+                    <td>{row.cmileage}</td>
+                    <td>{row.gallons}</td>
+                    <td>{row.price}</td>
+                    <td>{row.mpg}</td>
+                    <td>{row.total}</td>
+                  </tr>
+                );
               })}
               <tr>
               </tr>
