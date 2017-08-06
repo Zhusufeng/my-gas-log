@@ -76,19 +76,53 @@ app.use(express.static('compiled/client'));
 
 // Basic GET to /
 app.get('/', function(req, res) {
-  res.send('Hello you did a GET request');
+  res.status(200).send('GET: Hello you did a GET request');
+});
+
+// GET to /post which queries DB
+app.get('/post', function(req, res) {
+  var getAll = "SELECT * FROM gaslog";
+
+  db.query(getAll, function(err, result) {
+    if (err) {
+      console.log('ERR!: GET error: ', err);
+    }
+    console.log(result);
+    res.status(200).send(result);
+  });
 });
 
 // Basic POST to /
 app.post('/', function(req, res) {
-  res.status(201).send(req.body);
+  // Test posting to DB with Postman
+  var exampleQuery = "INSERT INTO gaslog(pmileage, cmileage, gallons, price, mpg, total) VALUES (?,?,?,?,?,?)";
+  db.query(exampleQuery, [500, 1000, 15, 2.59, 33.33, 38.85],function(err, result) {
+    if (err) {
+      console.log('ERR!: Posting error: ', err);
+    }
+    res.status(201).send('POST: You posted to / ! Check table in database');
+  });
 });
 
-// Basic POST to /post
+// POST to /post which queries DB
 app.post('/post', function(req, res) {
   // Express body-parser
-  console.log('POSTED. Server side says success: ', req.body);
-  res.status(201).send(req.body);
+  console.log('POST: Server side received: ', req.body);
+  // console.log(req.body.pmileage, req.body.cmileage, req.body.gallons, req.body.price, req.body.mpg, req.body.total);
+
+  var params = [req.body.pmileage, req.body.cmileage, req.body.gallons, req.body.price, req.body.mpg, req.body.total];
+
+  // console.log(params);
+
+  var postQuery = "INSERT INTO gaslog(pmileage, cmileage, gallons, price, mpg, total) VALUES (?,?,?,?,?,?)";
+
+  db.query(postQuery, params, function(err, result) {
+    if (err) {
+      console.log('ERR!: Posting error: ', err);
+    }
+
+    res.status(201).send('POSTED: Check database!');
+  });
 
 });
 
