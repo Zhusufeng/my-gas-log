@@ -1,7 +1,14 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tableData: []
+    };
+  }
 
+  // Render what's in the database
+  componentDidMount() {
+    this.get();
   }
 
   logMe(e) {
@@ -44,10 +51,10 @@ class App extends React.Component {
       type: 'POST',
       data: JSON.stringify(info),
       contentType: 'application/json',
-      success: function(data) {
+      success: (data) => {
         console.log('POST. Client side receives back posted data: ', data);
       },
-      error: function(error) {
+      error: (error) => {
         console.error('POST. Client side receives back error data: ', error);
       }
     });
@@ -60,13 +67,18 @@ class App extends React.Component {
       url: '/post',
       type: 'GET',
       contentType: 'application/json',
-      success: function(data) {
+      success: (data) => {
         console.log('GET. Client side received back all data: ', data);
+        this.setState({ tableData: data }).bind(this);
       },
-      error: function() {
+      error: () => {
         console.error('GET. Client side receives back error data: ', error);
       }
     });
+      // .done(data) => {
+      //   console.log('This is the DONE');
+      //   this.setState({ tableData: data }).bind(this);
+      // });
   }
 
   render() {
@@ -150,6 +162,21 @@ class App extends React.Component {
                 <th>Total Gas Money</th>
               </tr>
             </thead>
+            <tbody>
+              {this.state.tableData.map((row) => {
+                <tr>
+                  <td>row.created</td>
+                  <td>row.pmileage</td>
+                  <td>row.cmileage</td>
+                  <td>row.gallons</td>
+                  <td>row.price</td>
+                  <td>row.mpg</td>
+                  <td>row.total</td>
+                </tr>
+              })}
+              <tr>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
